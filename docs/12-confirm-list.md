@@ -1,0 +1,14 @@
+# 12. Developer Confirmation Checklist ([CONFIRM WITH DEVELOPER])
+
+The following architectural decisions and historical trade-offs were deduced by analyzing the code, structure, and dependencies. Review each item below to confirm alignment with your engineering intent:
+
+| Item # | Identified Architectural Decision | Location in Codebase | Inferred Rationale | Developer Confirmation |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | **Selection of Vanilla JS over React/Vue** | [index.html:279-385](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L279-L385) | Chosen to showcase core DOM mastery, minimize bundle bloat, and achieve instant page loads without a build pipeline. | `[ ] Confirmed` |
+| **2** | **Use of Tailwind Play CDN Script** | [index.html:7](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L7) | Chosen for maximum prototyping speed and zero local Node/PostCSS build overhead. | `[ ] Confirmed` |
+| **3** | **Adoption of VanillaTilt.js Library** | [index.html:8](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L8), [#L280](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L280) | Chosen for lightweight (3.8KB) hardware-accelerated 3D parallax tilting and specular glare without WebGL/Three.js overhead. | `[ ] Confirmed` |
+| **4** | **CSS Variables for Radar Magnifier** | [index.html:99-112](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L99-L112), [#L361](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L361) | Chosen to offload scaling and positioning to the browser's GPU compositor, avoiding HTML5 Canvas render loops. | `[ ] Confirmed` |
+| **5** | **Pure CSS 3D Carousel Architecture** | [index.html:133-174](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L133-L174) | Chosen to demonstrate mathematical cylindrical projection with zero JS execution during the animation loop. | `[ ] Confirmed` |
+| **6** | **Zero-JS Sibling Combinator Navbar** | [index.html:46-84](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L46-L84) | Chosen to eliminate JavaScript event listeners and layout thrashing during tab hovers. | `[ ] Confirmed` |
+| **7** | **Static In-Memory Telemetry Mock** | [index.html:291-305](file:///Users/avishjain/avishjain9-repos/56-avishjain-weatherapp/abstract-forge/index.html#L291-L305) | Intended as a UI prototype layer prior to connecting real-time OpenWeatherMap API endpoints. | `[ ] Confirmed` |
+| **8** | **Single Commit Repository Structure** | Git commit `095472e` | Represents the finalized delivery submission for the Abstract Forge hackathon/assessment. | `[ ] Confirmed` |

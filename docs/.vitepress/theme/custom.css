@@ -1,0 +1,55 @@
+/* Pure Black Dark Theme for VitePress */
+.dark {
+  --vp-c-bg: #000000;
+  --vp-c-bg-alt: #000000;
+  --vp-c-bg-elv: #0a0a0a;
+  --vp-c-bg-soft: #0a0a0a;
+  --vp-sidebar-bg-color: #000000;
+  --vp-c-border: #222222;
+  --vp-c-divider: #1f2937;
+  --vp-c-gutter: #111827;
+  --vp-custom-block-info-bg: #0d1520;
+  --vp-custom-block-tip-bg: #0d1e18;
+  --vp-custom-block-warning-bg: #211a0a;
+  --vp-custom-block-danger-bg: #250d0d;
+}
+
+:root {
+  --vp-c-brand-1: #3b82f6;
+  --vp-c-brand-2: #60a5fa;
+  --vp-c-brand-3: #2563eb;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.14);
+}
+
+/* Custom styling for tables and code blocks */
+table {
+  display: table;
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid var(--vp-c-divider);
+  padding: 0.65rem 1rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--vp-c-bg-elv);
+  font-weight: 600;
+}
+
+tr:nth-child(2n) {
+  background-color: var(--vp-c-bg-soft);
+}
+
+.mermaid {
+  background: #05080f;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #1f2937;
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
