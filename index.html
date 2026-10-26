@@ -189,12 +189,33 @@
             <span></span> 
         </nav>
 
+        <!-- Live Open-Meteo City Search -->
+        <div class="max-w-xl mx-auto -mt-4 mb-8">
+            <div class="flex gap-2 p-1.5 card-bg rounded-2xl shadow-xl">
+                <input
+                    id="city-search-input"
+                    type="text"
+                    placeholder="Search any global city (e.g., Tokyo, London, Paris, New Delhi)..."
+                    class="flex-1 bg-transparent px-4 py-2.5 text-white placeholder-gray-400 focus:outline-none text-sm sm:text-base"
+                    value="New York"
+                />
+                <button
+                    id="city-search-btn"
+                    class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl font-semibold text-white text-sm transition shadow-md flex items-center gap-1.5"
+                >
+                    <span id="search-spinner" class="hidden animate-spin">⟳</span>
+                    <span>Search</span>
+                </button>
+            </div>
+            <div id="weather-status-alert" class="hidden mt-3 text-center text-xs py-2 px-4 rounded-xl transition-all"></div>
+        </div>
+
         <section id="current" class="grid lg:grid-cols-3 gap-8">
             <div id="weather-details" class="card-bg p-8 rounded-3xl lg:col-span-2 shadow-2xl transition duration-500 cursor-pointer"
                  data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-perspective="1000">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div>
-                        <p class="text-3xl font-light text-gray-300">New York, USA</p>
+                        <p id="current-city-label" class="text-3xl font-light text-gray-300">New York, USA</p>
                         <p class="text-sm text-gray-400 mb-4" id="current-time">Loading time...</p>
                         <div class="flex items-center">
                             <span class="text-9xl font-extrabold text-white" id="current-temp">--°C</span>
@@ -203,7 +224,9 @@
                         <p class="text-xl mt-2 text-gray-400" id="current-high-low">H: --°C / L: --°C</p>
                     </div>
 
-                    <svg class="w-32 h-32 text-yellow-400 mt-6 md:mt-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 00-9.28 13.52 7 7 0 0013.29 4.98A10 10 0 0012 2zm0 18a8 8 0 01-5.66-13.66A8 8 0 0118.8 12.3l.03.01a5 5 0 00-6.84 5.37 5.01 5.01 0 00.01.01 5 5 0 00-.01.01A5 5 0 0012 20z"></path></svg>
+                    <div id="current-icon-container" class="text-8xl mt-6 md:mt-0 animate-pulse">
+                        ☀️
+                    </div>
                 </div>
             </div>
 
@@ -238,40 +261,34 @@
         <section id="locations" class="bg-gray-900/50 p-6 rounded-xl shadow-2xl relative">
             <h2 class="text-3xl font-semibold text-blue-300 mb-4 text-center border-b border-gray-700 pb-3">Global Weather</h2>
             <div id="slider-wrap" class="relative">
-                <div id="temp-slider" class="mx-auto">
-                    <div class="city-card card-bg">
+                <div id="temp-slider" class="mx-auto cursor-pointer">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('London')">
                         <p class="text-lg font-bold">London</p>
-                        <p class="text-4xl text-white my-2">15°C</p>
-                        <p class="text-sm text-yellow-400">Partly Cloudy</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
-                    <div class="city-card card-bg">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('Tokyo')">
                         <p class="text-lg font-bold">Tokyo</p>
-                        <p class="text-4xl text-white my-2">22°C</p>
-                        <p class="text-sm text-red-400">Light Rain</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
-                    <div class="city-card card-bg">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('Dubai')">
                         <p class="text-lg font-bold">Dubai</p>
-                        <p class="text-4xl text-white my-2">35°C</p>
-                        <p class="text-sm text-green-400">Clear Sky</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
-                    <div class="city-card card-bg">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('Sydney')">
                         <p class="text-lg font-bold">Sydney</p>
-                        <p class="text-4xl text-white my-2">25°C</p>
-                        <p class="text-sm text-yellow-400">Sunny</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
-                    <div class="city-card card-bg">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('Paris')">
                         <p class="text-lg font-bold">Paris</p>
-                        <p class="text-4xl text-white my-2">10°C</p>
-                        <p class="text-sm text-blue-400">Overcast</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
-                    <div class="city-card card-bg">
+                    <div class="city-card card-bg hover:border-blue-400 transition" onclick="fetchRealWeather('Rio de Janeiro')">
                         <p class="text-lg font-bold">Rio</p>
-                        <p class="text-4xl text-white my-2">28°C</p>
-                        <p class="text-sm text-yellow-400">Tropical</p>
+                        <p class="text-sm text-blue-300 mt-2">Click to load ↗</p>
                     </div>
                 </div>
             </div>
-            <p class="text-center text-sm text-gray-400 mt-4">The carousel rotates continuously and pauses on hover.</p>
+            <p class="text-center text-sm text-gray-400 mt-4">The carousel rotates continuously. Click any city to instantly fetch its live Open-Meteo forecast.</p>
         </section>
 
     </main>
@@ -284,44 +301,140 @@
             "max-glare": 0.3,
         });
 
-        function mockFetchWeather() {
+        function interpretWmoCode(code, isDay = 1) {
+            switch (code) {
+                case 0:
+                    return { label: isDay ? "Clear Sky" : "Clear Night", icon: isDay ? "☀️" : "✨", color: "text-yellow-400" };
+                case 1:
+                    return { label: "Mainly Clear", icon: isDay ? "🌤️" : "✨", color: "text-yellow-300" };
+                case 2:
+                    return { label: "Partly Cloudy", icon: "⛅", color: "text-blue-300" };
+                case 3:
+                    return { label: "Overcast", icon: "☁️", color: "text-gray-300" };
+                case 45:
+                case 48:
+                    return { label: "Foggy", icon: "🌫️", color: "text-slate-300" };
+                case 51:
+                case 53:
+                case 55:
+                    return { label: "Drizzle", icon: "🌦️", color: "text-blue-400" };
+                case 61:
+                case 63:
+                case 65:
+                    return { label: "Rain", icon: "🌧️", color: "text-blue-500" };
+                case 71:
+                case 73:
+                case 75:
+                    return { label: "Snow", icon: "❄️", color: "text-cyan-200" };
+                case 80:
+                case 81:
+                case 82:
+                    return { label: "Showers", icon: "🌧️", color: "text-indigo-400" };
+                case 95:
+                case 96:
+                case 99:
+                    return { label: "Thunderstorm", icon: "⛈️", color: "text-purple-400" };
+                default:
+                    return { label: "Clear", icon: "☀️", color: "text-yellow-400" };
+            }
+        }
+
+        async function fetchRealWeather(cityName = 'New York') {
+            const alertBox = document.getElementById('weather-status-alert');
+            const spinner = document.getElementById('search-spinner');
+            const searchBtn = document.getElementById('city-search-btn');
+            const cityInput = document.getElementById('city-search-input');
+            const tempElem = document.getElementById('current-temp');
+            const condElem = document.getElementById('current-condition');
+            const cityElem = document.getElementById('current-city-label');
+            const highLowElem = document.getElementById('current-high-low');
+            const iconElem = document.getElementById('current-icon-container');
+            const forecastGrid = document.getElementById('forecast-grid');
+
+            cityInput.value = cityName;
+            spinner.classList.remove('hidden');
+            searchBtn.disabled = true;
+
             const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
             document.getElementById('current-time').textContent = new Date().toLocaleDateString('en-US', dateOptions);
 
-            const mockData = {
-                current: {
-                    temp: 24,
-                    condition: "Partly Cloudy",
-                    high: 28,
-                    low: 18,
-                },
-                forecast: [
-                    { day: "Thu", temp: 25, condition: "Sunny", icon: "☀️", color: "text-yellow-500" },
-                    { day: "Fri", temp: 26, condition: "Clear", icon: "✨", color: "text-yellow-400" },
-                    { day: "Sat", temp: 21, condition: "Rain", icon: "🌧️", color: "text-blue-400" },
-                    { day: "Sun", temp: 22, condition: "Windy", icon: "💨", color: "text-gray-400" },
-                    { day: "Mon", temp: 24, condition: "Cloudy", icon: "☁️", color: "text-gray-300" }
-                ]
-            };
+            alertBox.className = 'mt-3 text-center text-xs py-2 px-4 rounded-xl bg-blue-900/40 text-blue-300 border border-blue-800';
+            alertBox.textContent = `Connecting to Open-Meteo API for "${cityName}"...`;
+            alertBox.classList.remove('hidden');
 
-            document.getElementById('current-temp').textContent = `${mockData.current.temp}°C`;
-            document.getElementById('current-condition').textContent = mockData.current.condition;
-            document.getElementById('current-high-low').textContent = `H: ${mockData.current.high}°C / L: ${mockData.current.low}°C`;
+            try {
+                // 1. Geocode lookup
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=en&format=json`;
+                const geoRes = await fetch(geoUrl);
+                if (!geoRes.ok) throw new Error(`Geocoding HTTP error: ${geoRes.status}`);
+                const geoData = await geoRes.json();
 
-            const forecastGrid = document.getElementById('forecast-grid');
-            forecastGrid.innerHTML = ''; 
+                if (!geoData.results || geoData.results.length === 0) {
+                    throw new Error(`Location "${cityName}" not recognized. Please check spelling.`);
+                }
 
-            mockData.forecast.forEach(day => {
-                const dayCard = document.createElement('div');
-                dayCard.className = 'grid-item card-bg p-4 text-center space-y-2';
-                dayCard.innerHTML = `
-                    <p class="text-lg font-semibold text-white">${day.day}</p>
-                    <p class="text-4xl ${day.color}">${day.icon}</p>
-                    <p class="text-2xl font-bold text-white">${day.temp}°C</p>
-                    <p class="text-sm text-gray-400">${day.condition}</p>
-                `;
-                forecastGrid.appendChild(dayCard);
-            });
+                const place = geoData.results[0];
+                const fullPlace = `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}${place.country ? ', ' + place.country : ''}`;
+                cityElem.textContent = fullPlace;
+
+                // 2. Weather forecast lookup
+                const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max&timezone=auto`;
+                const fRes = await fetch(forecastUrl);
+                if (!fRes.ok) throw new Error(`Forecast HTTP error: ${fRes.status}`);
+                const fData = await fRes.json();
+
+                const current = fData.current;
+                const daily = fData.daily;
+                const info = interpretWmoCode(current.weather_code, current.is_day);
+
+                tempElem.textContent = `${Math.round(current.temperature_2m)}°C`;
+                condElem.textContent = info.label;
+                condElem.className = `text-4xl ml-4 font-semibold ${info.color}`;
+                iconElem.textContent = info.icon;
+
+                const maxT = Math.round(daily.temperature_2m_max[0]);
+                const minT = Math.round(daily.temperature_2m_min[0]);
+                const feels = Math.round(current.apparent_temperature);
+                const humidity = Math.round(current.relative_humidity_2m);
+                const wind = Math.round(current.wind_speed_10m);
+                highLowElem.textContent = `H: ${maxT}°C / L: ${minT}°C • Feels like ${feels}°C • Wind: ${wind} km/h • Humidity: ${humidity}%`;
+
+                // UV
+                if (daily.uv_index_max && daily.uv_index_max[0] !== undefined) {
+                    uvIndex = Math.round(daily.uv_index_max[0]);
+                    updateUvDisplay();
+                }
+
+                // 5-day forecast
+                forecastGrid.innerHTML = '';
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const count = Math.min(5, daily.time.length);
+
+                for (let i = 0; i < count; i++) {
+                    const d = new Date(daily.time[i]);
+                    const dayLabel = i === 0 ? 'Today' : days[d.getDay()];
+                    const dInfo = interpretWmoCode(daily.weather_code[i], 1);
+                    const dayCard = document.createElement('div');
+                    dayCard.className = 'grid-item card-bg p-4 text-center space-y-2 rounded-xl border border-gray-700/50';
+                    dayCard.innerHTML = `
+                        <p class="text-base font-semibold text-white">${dayLabel}</p>
+                        <p class="text-4xl ${dInfo.color} my-1">${dInfo.icon}</p>
+                        <p class="text-xl font-bold text-white">${Math.round(daily.temperature_2m_max[i])}°C</p>
+                        <p class="text-xs text-gray-400">Low: ${Math.round(daily.temperature_2m_min[i])}°C</p>
+                        <p class="text-xs font-medium ${dInfo.color}">${dInfo.label}</p>
+                    `;
+                    forecastGrid.appendChild(dayCard);
+                }
+
+                alertBox.className = 'mt-3 text-center text-xs py-2 px-4 rounded-xl bg-emerald-900/40 text-emerald-300 border border-emerald-800';
+                alertBox.textContent = `✓ Live Open-Meteo data active for ${fullPlace}`;
+            } catch (err) {
+                alertBox.className = 'mt-3 text-center text-xs py-2 px-4 rounded-xl bg-red-900/40 text-red-300 border border-red-800';
+                alertBox.textContent = `Error: ${err.message}`;
+            } finally {
+                spinner.classList.add('hidden');
+                searchBtn.disabled = false;
+            }
         }
 
         let uvIndex = 5;
@@ -341,7 +454,6 @@
         function updateUvDisplay() {
             uvDisplay.textContent = uvIndex;
             const rating = getUvRating(uvIndex);
-            
             uvRating.textContent = rating.text;
             uvRating.className = `text-2xl mt-2 font-bold ${rating.color}`;
         }
@@ -357,29 +469,35 @@
         });
 
         const radarzoom = document.getElementById('radar-map');
-
         const handleZoom = (event) => {
             const x = event.offsetX;
             const y = event.offsetY;
-
             const percentX = (x / radarzoom.offsetWidth) * 100;
             const percentY = (y / radarzoom.offsetHeight) * 100;
-
             radarzoom.style.setProperty('--zoom-x', percentX + '%');
             radarzoom.style.setProperty('--zoom-y', percentY + '%');
-
             radarzoom.style.setProperty('--display-opacity', '1');
         };
-
         const hideZoom = () => {
             radarzoom.style.setProperty('--display-opacity', '0');
         };
-
         radarzoom.addEventListener('mousemove', handleZoom);
         radarzoom.addEventListener('mouseleave', hideZoom);
 
+        document.getElementById('city-search-btn').addEventListener('click', () => {
+            const val = document.getElementById('city-search-input').value.trim();
+            if (val) fetchRealWeather(val);
+        });
+
+        document.getElementById('city-search-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = e.target.value.trim();
+                if (val) fetchRealWeather(val);
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
-            mockFetchWeather();
+            fetchRealWeather('New York');
             updateUvDisplay();
         });
     </script>
